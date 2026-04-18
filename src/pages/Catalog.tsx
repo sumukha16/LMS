@@ -9,7 +9,6 @@ import {
 import { useToast } from '@/contexts/ToastContext';
 import {
   Search,
-  Filter,
   Grid3X3,
   List,
   Plus,
@@ -20,7 +19,6 @@ import {
   Trash2,
   CheckCircle,
   XCircle,
-  BookOpen,
 } from 'lucide-react';
 
 interface Book {
@@ -118,20 +116,6 @@ export default function Catalog() {
   const availabilityDot = (book: Book) => {
     if (book.available_copies > 0) return 'bg-[#4A6741]';
     return 'bg-[#8B2942]';
-  };
-
-  const emptyBookForm = {
-    isbn: '',
-    title: '',
-    author: '',
-    publisher: '',
-    publication_year: new Date().getFullYear(),
-    genre: '',
-    pages: 0,
-    description: '',
-    cover_image_url: '/assets/book_covers/cover_01.jpg',
-    location_code: '',
-    total_copies: 1,
   };
 
   return (

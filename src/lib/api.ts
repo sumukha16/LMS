@@ -1,4 +1,5 @@
-const API_BASE = 'https://lms-xb2q.onrender.com/api';
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://lms-xb2q.onrender.com/api';
+
 
 function getToken(): string | null {
   return localStorage.getItem('libris_token');

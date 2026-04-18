@@ -25,7 +25,7 @@ export default function Login() {
       const data = await loginApi(username, password);
       login(data.token, data.user);
       showToast(`Welcome back, ${data.user.full_name || data.user.username}!`);
-      navigate('/');
+      navigate('/home');
     } catch (err: unknown) {
       const error = err as Error;
       showToast(error.message || 'Login failed', 'error');

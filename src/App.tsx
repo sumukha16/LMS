@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { ToastProvider } from './contexts/ToastContext'
 import Home from './pages/Home'
@@ -8,15 +8,16 @@ import Dashboard from './pages/Dashboard'
 
 export default function App() {
   return (
-    <AuthProvider>
-      <ToastProvider>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </ToastProvider>
-    </AuthProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <Routes>
+            <Route path="/" element={<Login />} />   {/* ✅ FIXED */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </ToastProvider>
+      </AuthProvider>
+
   )
 }

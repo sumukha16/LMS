@@ -1051,10 +1051,5 @@ def get_popular_books():
 def index():
     return jsonify({'message': 'Libris API is running'}), 200
 
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-        if Book.query.count() == 0:
-            seed_data()
-
+if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))

@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_BASE || 'https://lms-1-i7og.onrender.com';
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://lms-1-i7og.onrender.com/api';
 
 function getToken(): string | null {
   return localStorage.getItem('libris_token');

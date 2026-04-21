@@ -7,34 +7,42 @@ function getToken(): string | null {
 async function apiRequest(endpoint: string, options: RequestInit = {}) {
   const url = `${API_BASE}${endpoint}`;
   const token = getToken();
-  
+
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...((options.headers as Record<string, string>) || {}),
   };
-  
+
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
-  
+
   const response = await fetch(url, {
     ...options,
     headers,
   });
-  
+
   if (response.status === 401) {
     localStorage.removeItem('libris_token');
     localStorage.removeItem('libris_user');
     window.location.href = '/login';
     throw new Error('Session expired');
   }
-  
-  const data = await response.json();
-  
+
+  // 🔥 IMPORTANT FIX
+  const text = await response.text();
+
+  let data;
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch (err) {
+    throw new Error("Server returned invalid JSON: " + text);
+  }
+
   if (!response.ok) {
     throw new Error(data.error || 'Something went wrong');
   }
-  
+
   return data;
 }
 

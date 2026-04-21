@@ -246,6 +246,9 @@ def seed_data():
 # AUTHENTICATION ROUTES
 # =============================================================================
 
+from flask_jwt_extended import create_access_token
+from datetime import datetime
+
 @app.route('/api/auth/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -266,7 +269,11 @@ def login():
     db.session.commit()
     
     access_token = create_access_token(identity=str(user.id))
-    return jsonify({'token': access_token, 'user': user.to_dict()}), 200
+    
+    return jsonify({
+        'token': access_token,
+        'user': user.to_dict()
+    }), 200
 
 
 @app.route('/api/auth/me', methods=['GET'])

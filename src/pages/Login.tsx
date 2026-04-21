@@ -183,3 +183,29 @@ export default function Login() {
     </div>
   );
 }
+from flask_jwt_extended import create_access_token
+
+@app.route('/api/auth/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username', '').strip()
+    password = data.get('password', '')
+
+    if not username or not password:
+        return jsonify({'error': 'Username and password are required'}), 400
+
+    user = User.query.filter_by(username=username).first()
+    if not user or not user.check_password(password):
+        return jsonify({'error': 'Invalid username or password'}), 401
+
+    # ✅ ADD THIS
+    token = create_access_token(identity=user.id)
+
+    return jsonify({
+        "token": token,
+        "user": {
+            "id": user.id,
+            "username": user.username,
+            "full_name": user.full_name
+        }
+    }), 200

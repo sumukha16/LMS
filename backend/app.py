@@ -271,9 +271,15 @@ def login():
     access_token = create_access_token(identity=str(user.id))
     
     return jsonify({
-        'token': access_token,
-        'user': user.to_dict()
-    }), 200
+    'token': access_token,
+    'user': {
+        'id': user.id,
+        'username': user.username,
+        'full_name': user.full_name,
+        'email': user.email,
+        'role': user.role
+    }
+}), 200
 
 
 @app.route('/api/auth/me', methods=['GET'])
